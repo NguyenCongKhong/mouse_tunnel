@@ -31,7 +31,7 @@ func main() {
     // runShell("chmod +x ./gotty")
     // runShell("./gotty --port 8000 --permit-write --reconnect --credential hello:1 /bin/sh")
     
-    //runShell("chmod +x ./chisel")
+    runShell("chmod +x ./chisel")
    
     cmd = exec.Command("./chisel", "server", "--port", "8000", "--backend", "--socks5", "--reverse")
     cmd.Stdout = os.Stdout
