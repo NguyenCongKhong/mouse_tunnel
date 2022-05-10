@@ -31,9 +31,12 @@ func main() {
     // runShell("chmod +x ./gotty")
     // runShell("./gotty --port 8000 --permit-write --reconnect --credential hello:1 /bin/sh")
     
-    runShell("chmod +x ./chisel")
+    //runShell("chmod +x ./chisel")
    
     cmd = exec.Command("./chisel", "server", "--port", "8000", "--backend", "--socks5", "--reverse")
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+    
     stdoutStderr, err := cmd.CombinedOutput()
     if err != nil {
         log.Printf("start chisel return error %v - detail %s\n", err, string(stdoutStderr))
