@@ -12,15 +12,15 @@ func main() {
     cmd = exec.Command("sh", "-c", "cp ../chisel .")
     err = cmd.Run()
     if err != nil {
-        log.Printf("run chmod return error %v\n", err)
+        log.Printf("run shell cp return error %v\n", err)
         return
     }
-    cmd = exec.Command("sh", "-c", "chmod +x ./chisel")
-    err = cmd.Run()
-    if err != nil {
-        log.Printf("run chmod return error %v\n", err)
-        return
-    }
+    // cmd = exec.Command("sh", "-c", "chmod +x ./chisel")
+    // err = cmd.Run()
+    // if err != nil {
+    //     log.Printf("run shell chmod return error %v\n", err)
+    //     return
+    // }
     cmd = exec.Command("./chisel", "--port", "8000", "--backend", "--socks5", "--reverse")
     err = cmd.Run()
     if err != nil {
