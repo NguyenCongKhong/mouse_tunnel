@@ -33,10 +33,10 @@ func main() {
     
     runShell("chmod +x ./chisel")
    
-    cmd = exec.Command("./chisel", "--port", "8000", "--backend", "--socks5", "--reverse")
-    err = cmd.Run()
+    cmd = exec.Command("./chisel", "server", "--port", "8000", "--backend", "--socks5", "--reverse")
+    stdoutStderr, err := cmd.CombinedOutput()
     if err != nil {
-        log.Printf("start chisel return error %v\n", err)
+        log.Printf("start chisel return error %v - detail %s\n", err, string(stdoutStderr))
     }
     return
 }
