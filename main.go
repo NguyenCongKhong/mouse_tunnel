@@ -14,7 +14,7 @@ func main() {
         fmt.Printf("run chmod return error %v\n", err)
         return
     }
-    cmd = exec.Command("./chisel")
+    cmd = exec.Command("./chisel", "--port", "8000", "--backend", "--socks5", "--reverse")
     err = cmd.Start()
     if err != nil {
         fmt.Printf("start chisel return error %v\n", err)
