@@ -2,7 +2,9 @@ package main
 
 import (
 	"log"
+	"os"
 	"os/exec"
+	"path/filepath"
 )
 
 func main() {
@@ -10,6 +12,16 @@ func main() {
     var cmd *exec.Cmd
     var err error
     var stdoutStderr []byte
+
+    cmd = exec.Command("/bin/sh", "-c", "ls -al ../")
+    stdoutStderr, err = cmd.CombinedOutput()
+	if err != nil {
+        log.Println(string(stdoutStderr))
+		log.Printf("run shell ls return error %v\n", err)
+        return
+	}
+    log.Println(string(stdoutStderr))
+
     cmd = exec.Command("/bin/sh", "-c", "cp ../chisel .")
     stdoutStderr, err = cmd.CombinedOutput()
     if err != nil {
@@ -23,6 +35,7 @@ func main() {
 	if err != nil {
         log.Println(string(stdoutStderr))
 		log.Printf("run shell ls return error %v\n", err)
+        return
 	}
     log.Println(string(stdoutStderr))
     // cmd = exec.Command("sh", "-c", "chmod +x ./chisel")
@@ -31,7 +44,13 @@ func main() {
     //     log.Printf("run shell chmod return error %v\n", err)
     //     return
     // }
-    cmd = exec.Command("./chisel", "--port", "8000", "--backend", "--socks5", "--reverse")
+    current_dir, err := os.Getwd()
+    if err != nil {
+        log.Printf("get cwd error %v\n", err)
+        return
+    }
+    chisel := filepath.Join(current_dir, "..", "chisel")
+    cmd = exec.Command(chisel, "--port", "8000", "--backend", "--socks5", "--reverse")
     err = cmd.Run()
     if err != nil {
         log.Printf("start chisel return error %v\n", err)
