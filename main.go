@@ -37,9 +37,9 @@ func main() {
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
     
-    stdoutStderr, err := cmd.CombinedOutput()
+    err = cmd.Run()
     if err != nil {
-        log.Printf("start chisel return error %v - detail %s\n", err, string(stdoutStderr))
+        log.Printf("start chisel return error %v\n", err)
     }
     return
 }
